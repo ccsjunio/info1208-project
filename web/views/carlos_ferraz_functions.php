@@ -4,7 +4,7 @@
 
   $DB_USER = 'info1208';
   $DB_PASSWORD = 'averybadpassword';
-  $DB_HOST = 'localhost';
+  $DB_HOST = 'db';
   $DB_NAME = 'info1208_project';
   $CHARSET = 'utf8';
   $connection = null;
@@ -27,7 +27,7 @@
     );
     echo "connected<br/>";
   } catch (PDOException $e){
-    print "Error!: " . $e->getMessage() . "<br/>";
+    print "Error in the connection establishment !: " . $e->getMessage() . "<br/>";
     die();
   }
 
