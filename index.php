@@ -1,3 +1,3 @@
 <?php
-  echo "test for auto deploy 99999999999999";
+  echo "test for auto deploy 0000000000000000";
 ?>
