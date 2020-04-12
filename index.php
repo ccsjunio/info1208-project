@@ -1,4 +1,4 @@
 <?php
   phpinfo();
-  echo "test for auto deploy 2";
+  echo "test for auto deploy 2434343";
 ?>
