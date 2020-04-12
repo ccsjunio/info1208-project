@@ -1,6 +1,5 @@
 <?php
-  session_start();
-  echo "SID: " . session_id();
+  require_once(ROOTFOLDER."/views/carlos_ferraz_functions.php");
 ?>
 
 <!doctype html>
@@ -26,10 +25,10 @@
       <div id="records-container">
 
       </div><!-- end of records container -->
-      <form>
+      <form method="POST" action="/output">
         <label>Movie Title<input type="text" placeholder="movie title"/></label>
         <label>Movie Rating
-          <select>
+          <select name="movieRating" for="movieRating">
             <option value="">Give your movie a rating</option>
             <option value="1">Skip it</option>
             <option value="3">Take it or leave it</option>

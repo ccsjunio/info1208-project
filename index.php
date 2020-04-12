@@ -1,7 +1,7 @@
 <?php
 
-define("_ROOTFOLDER",$_SERVER['DOCUMENT_ROOT']);
-define("_URLBASE",$_SERVER['SERVER_NAME']);
+define("ROOTFOLDER",$_SERVER['DOCUMENT_ROOT']);
+define("URLBASE",$_SERVER['SERVER_NAME']);
 
 $request = $_SERVER['REQUEST_URI'];
 
@@ -11,6 +11,10 @@ switch ($request) {
         require __DIR__ . '/views/carlos_ferraz_submit.php';
         break;
     case '' :
+        http_response_code(200);
+        require __DIR__ . '/views/carlos_ferraz_submit.php';
+        break;
+    case '/submit' :
         http_response_code(200);
         require __DIR__ . '/views/carlos_ferraz_submit.php';
         break;

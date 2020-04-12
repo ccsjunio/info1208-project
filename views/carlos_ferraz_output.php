@@ -1,6 +1,5 @@
 <?php
-  session_start();
-  echo session_id();
+  require_once(ROOTFOLDER."/views/carlos_ferraz_functions.php");
 ?>
 
 <!doctype html>
@@ -16,8 +15,17 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <head></head>
 
+    <main>
+
+      <div id="userMessage"></div>
+
+      <div id="results"></div>
+
+      <button type="button"><a href="/submit">Submit another movie</a></button>
+
+    </main>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
