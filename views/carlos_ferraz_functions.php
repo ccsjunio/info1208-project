@@ -2,12 +2,30 @@
 
   session_start();
 
-  // turn on a debug feature with a query string
-  if(isset($_GET['debug'])){
-    echo '<pre>';
-    var_dump("Session array:", $_SESSION);
-    var_dump("Post array:", $_POST);
-    echo '</pre>';
-  } // end of if(isset($_GET['debug']))
+  $DB_USER = 'info1208';
+  $DB_PASSWORD = 'averybadpassword';
+  $DB_HOST = 'localhost';
+  $DB_NAME = 'info1208_project';
+  $connection = null;
+
+  try{
+    $connection = new PDO(
+      "mysql:host=$DB_HOST;dbname=$DB_NAME",
+      $DB_USER,
+      $DB_PASSWORD
+    );
+  } catch (PDOException $e){
+    print "Error!: " . $e->getMessage() . "<br/>";
+    die();
+  }
+
+  try{
+    foreach($connection->query('SELECT * FROM FOO') as $row){
+      print_r($row);
+    }
+  } catch (PDOException $e){
+    print "Error! : " . $e->getMessage() . "<br/>";
+  }
+
 
 ?>
