@@ -4,9 +4,6 @@ define("URLBASE",$_SERVER['SERVER_NAME']);
 
 $request = $_SERVER['REQUEST_URI'];
 
-echo "request....";
-echo $request;
-
 switch ($request) {
     case '/' :
         http_response_code(200);
