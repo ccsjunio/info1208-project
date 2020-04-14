@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Apr 14, 2020 at 07:57 PM
+-- Generation Time: Apr 14, 2020 at 07:55 PM
 -- Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1
 -- PHP Version: 7.4.4
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `info1208_project`
 --
-CREATE DATABASE IF NOT EXISTS `info1208_project` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `info1208_project`;
 
 -- --------------------------------------------------------
 
@@ -64,47 +62,6 @@ INSERT INTO `tbMovieFromUser` (`id`, `sName`, `tsCreation`) VALUES
 (24, '2222', '2020-04-14 02:44:36'),
 (25, '333333', '2020-04-14 02:44:44');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `tbMovieRating`
---
-
-DROP TABLE IF EXISTS `tbMovieRating`;
-CREATE TABLE `tbMovieRating` (
-  `id` int(11) NOT NULL,
-  `idMovieFromUser` int(11) NOT NULL,
-  `iRating` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `tbMovieRating`
---
-
-INSERT INTO `tbMovieRating` (`id`, `idMovieFromUser`, `iRating`) VALUES
-(1, 1, 1),
-(2, 2, 3),
-(3, 3, 5),
-(4, 4, 8),
-(5, 5, 1),
-(6, 6, 3),
-(7, 10, 1),
-(8, 11, 3),
-(9, 12, 1),
-(10, 13, 3),
-(11, 14, 3),
-(12, 15, 1),
-(13, 16, 1),
-(14, 17, 1),
-(15, 18, 1),
-(16, 19, 8),
-(17, 20, 2),
-(18, 21, 2),
-(19, 22, 2),
-(20, 23, 1),
-(21, 24, 3),
-(22, 25, 1);
-
 --
 -- Indexes for dumped tables
 --
@@ -116,12 +73,6 @@ ALTER TABLE `tbMovieFromUser`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tbMovieRating`
---
-ALTER TABLE `tbMovieRating`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -130,12 +81,6 @@ ALTER TABLE `tbMovieRating`
 --
 ALTER TABLE `tbMovieFromUser`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT for table `tbMovieRating`
---
-ALTER TABLE `tbMovieRating`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
