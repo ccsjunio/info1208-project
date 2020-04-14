@@ -1,5 +1,10 @@
 <?php
   require_once(ROOTFOLDER."/views/carlos_ferraz_functions.php");
+
+  // get movie ratings
+  $conn = getConnection();
+  $movieRatings = getMovieRatings($conn);
+  $conn = null;
 ?>
 
 <!doctype html>
@@ -21,7 +26,31 @@
 
       <div id="userMessage"></div>
 
-      <div id="results"></div>
+      <div id="results">
+      <div id="records-container">
+        <table>
+          <tr>
+            <th>#Order</th>
+            <th>Name</th>
+            <th>Rating</th>
+            <th>Cover</th>
+            <th>Date</th>
+          </tr>
+          <?php
+            foreach($movieRatings as $movie){
+              ?>
+              <tr>
+                <td>#</td>
+                <td><?=$movie['movieName']?></td>
+                <td><?=$movie['movieRating']?></td>
+                <td></td>
+                <td><?=date("F j, Y, g:i a",strtotime($movie['ratingDate']))?></td>
+              </tr>
+              <?php  
+            }
+          ?>
+        </table>
+      </div>
 
       <button type="button"><a href="/submit">Submit another movie</a></button>
 
