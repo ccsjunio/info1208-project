@@ -19,7 +19,9 @@
       // input values on database
       $connection = getConnection();
       $result = insertOneMovie($connection, $movie);
-      var_dump($result);
+      if($result['success']){
+        $inputStatusMessage .= "The movie and rating were inserted with success!";
+      }
       
     } else {// if($movieEntry['movie-name']!="" && $movieEntry['movie-rating']!="")
     
@@ -64,7 +66,7 @@
 
       <div id="results">
       <div id="records-container">
-        <table>
+        <table border="1">
           <tr>
             <th>#Order</th>
             <th>Name</th>
@@ -73,16 +75,18 @@
             <th>Date</th>
           </tr>
           <?php
+            $order = 1;
             foreach($movieRatings as $movie){
               ?>
               <tr>
-                <td>#</td>
+                <td>#<?=$order?></td>
                 <td><?=$movie['movieName']?></td>
                 <td><?=$movie['movieRating']?></td>
                 <td></td>
                 <td><?=date("F j, Y, g:i a",strtotime($movie['ratingDate']))?></td>
               </tr>
               <?php  
+              $order++;
             }
           ?>
         </table>

@@ -29,7 +29,7 @@
       <button type="button">View all Records</button>
       <!-- container to hold the records container -->
       <div id="records-container">
-        <table>
+        <table border="1">
           <tr>
             <th>#Order</th>
             <th>Name</th>
@@ -38,16 +38,18 @@
             <th>Date</th>
           </tr>
           <?php
+            $order = 1;
             foreach($movieRatings as $movie){
               ?>
               <tr>
-                <td>#</td>
+                <td>#<?=$order?></td>
                 <td><?=$movie['movieName']?></td>
                 <td><?=$movie['movieRating']?></td>
                 <td></td>
                 <td><?=date("F j, Y, g:i a",strtotime($movie['ratingDate']))?></td>
               </tr>
-              <?php  
+              <?php
+              $order++;  
             }
           ?>
         </table>
@@ -58,8 +60,9 @@
           <select name="movie-rating" for="movie-rating">
             <option value="">Give your movie a rating</option>
             <option value="1">Skip it</option>
-            <option value="3">Take it or leave it</option>
-            <option value="5">Must see !!</option>
+            <option value="2">Take it or leave it</option>
+            <option value="3">Must see !!</option>
+            <option value="8">I will pay for you to see this !!</option>
           </select>
         </label>
         <button type="submit">Submit</button>
