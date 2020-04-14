@@ -1,10 +1,44 @@
 <?php
   require_once(ROOTFOLDER."/views/carlos_ferraz_functions.php");
 
+  // get post inputs
+  $movieEntry = $_POST;
+  $inputStatusMessage = "";
+  
+  if(isset($movieEntry['movie-name']) && isset($movieEntry['movie-rating'])){
+    
+    if(trim($movieEntry['movie-name'])!="" && trim($movieEntry['movie-rating'])!=""){
+      
+      $movie = array(
+        
+        "name"    => filter_var( $movieEntry['movie-name'], FILTER_SANITIZE_STRING ),
+        "rating"  => filter_var( $movieEntry['movie-rating'], FILTER_SANITIZE_NUMBER_INT )
+        
+      );
+
+      // input values on database
+      $connection = getConnection();
+      $result = insertOneMovie($connection, $movie);
+      var_dump($result);
+      
+    } else {// if($movieEntry['movie-name']!="" && $movieEntry['movie-rating']!="")
+    
+      $inputStatusMessage .= "Both inputs must have a value";
+    
+    }
+
+  } else {//  if(isset($movieEntry['movie-name']) && isset($movieEntry['movie-rating']))
+
+    $inputStatusMessage .= "Both inputs must be sent.";
+
+  }
+
+
   // get movie ratings
   $conn = getConnection();
   $movieRatings = getMovieRatings($conn);
   $conn = null;
+
 ?>
 
 <!doctype html>
@@ -24,7 +58,9 @@
 
     <main>
 
-      <div id="userMessage"></div>
+      <div id="userMessage">
+        <?=$inputStatusMessage?>
+      </div>
 
       <div id="results">
       <div id="records-container">

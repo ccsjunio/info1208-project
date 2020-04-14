@@ -78,7 +78,49 @@ EOF;
   
   } // end of getMovieRatings
   
+  function insertOneMovie($connection, $input_array){
 
+    $response = array();
+    $response['success'] = false;
+
+    $movieName = $input_array['name'];
+    $movieRating = $input_array['rating'];
+
+    try{
+
+      // insert new movie and get new id
+      $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $connection->beginTransaction();
+      $statement = $connection->prepare("INSERT INTO tbMovieFromUser (sName) VALUES (?)");
+      $statement->execute([$movieName]);
+      $newMovieId = $connection->lastInsertId();
+      $connection->commit();
+
+      //insert rating using the id generated
+      $connection->beginTransaction();
+      $statement = $connection->prepare("INSERT INTO tbMovieRating (idMovieFromUser, iRating) VALUES (?,?)");
+      $statement->execute([$newMovieId, $movieRating]);
+      $newRatingId = $connection->lastInsertId();
+      $connection->commit();
+
+      $response['success'] = true;
+    
+    } catch (PDOException $e){
+      
+      $connection->rollBack();
+      print "Error! : " . $e->getMessage() . "<br/>";
+    
+    }
+
+
+    $response['inputs'] = array(
+      "movieName" => $movieName,
+      "movieRating" => $movieRating
+    );
+
+    return $response;
+
+  }
 
 
   // select records

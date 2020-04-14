@@ -53,9 +53,9 @@
         </table>
       </div><!-- end of records container -->
       <form method="POST" action="/output">
-        <label>Movie Title<input type="text" placeholder="movie title"/></label>
+        <label>Movie Title<input type="text" name="movie-name" for="movie-name" placeholder="movie title"/></label>
         <label>Movie Rating
-          <select name="movieRating" for="movieRating">
+          <select name="movie-rating" for="movie-rating">
             <option value="">Give your movie a rating</option>
             <option value="1">Skip it</option>
             <option value="3">Take it or leave it</option>
