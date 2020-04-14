@@ -1,6 +1,8 @@
 <?php
   require_once(ROOTFOLDER."/views/carlos_ferraz_functions.php");
 
+  
+
   // get post inputs
   $movieEntry = $_POST;
   $inputStatusMessage = "";
@@ -21,6 +23,12 @@
       $result = insertOneMovie($connection, $movie);
       if($result['success']){
         $inputStatusMessage .= "The movie and rating were inserted with success!";
+        // increment number of valid submissions
+        if(isset($_SESSION['submissions'])){
+          $_SESSION['submissions']++;
+        } else {
+          $_SESSION['submissions'] = 1;
+        }
       }
       
     } else {// if($movieEntry['movie-name']!="" && $movieEntry['movie-rating']!="")
@@ -37,9 +45,9 @@
 
 
   // get movie ratings
-  $conn = getConnection();
-  $movieRatings = getMovieRatings($conn);
-  $conn = null;
+  $connection = getConnection();
+  $movieRatings = getMovieRatings($connection);
+  $connection = null;
 
 ?>
 

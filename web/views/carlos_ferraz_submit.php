@@ -1,6 +1,16 @@
 <?php
   require_once(ROOTFOLDER."/views/carlos_ferraz_functions.php");
 
+  // test submissions state
+  $submissionsAllowed = true;
+  $maxSubmissionsAllowed = 3;
+
+  if(!isset($_SESSION['submissions'])){
+    $_SESSION['submissions']=0;
+  } else if($_SESSION['submissions']==3) {
+    $submissionsAllowed = false;
+  }
+
   // get movie ratings
   $conn = getConnection();
   $movieRatings = getMovieRatings($conn);
@@ -54,6 +64,10 @@
           ?>
         </table>
       </div><!-- end of records container -->
+      <?php if(!$submissionsAllowed) { ?>
+        <p>You have aready submitted <?=$maxSubmissionsAllowed?> movies. You cannot submit more than that! Sorry!</p>
+      <?php } ?>
+      <?php if($submissionsAllowed){ ?>
       <form method="POST" action="/output">
         <label>Movie Title<input type="text" name="movie-name" for="movie-name" placeholder="movie title"/></label>
         <label>Movie Rating
@@ -66,7 +80,8 @@
           </select>
         </label>
         <button type="submit">Submit</button>
-      </form>    
+      </form>
+      <?php } ?>
     </main>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
