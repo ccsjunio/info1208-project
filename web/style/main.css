@@ -1,0 +1,25 @@
+body{
+  font-family: "Roboto", sans-serif;
+}
+
+#records-container{
+  display : none;
+}
+
+.movie-row:nth-child(even){ background-color: #d4e2f9 }
+.movie-row:nth-child(odd){ background-color: #fff }
+
+.movie-row{
+  padding: 5px 0 5px 0;
+}
+
+.movie-row:hover{
+  background-color: green;
+  font-weight: bolder;
+  color: white;
+}
+
+.movie-header{
+  font-size: 1.1rem;
+  font-weight: bolder;
+}
