@@ -5,7 +5,10 @@
 
   // get post inputs
   $movieEntry = $_POST;
-  $inputStatusMessage = "";
+  $inputStatus = array(
+    "success"=>false,
+    "message"=>""
+  );
   
   if(isset($movieEntry['movie-name']) && isset($movieEntry['movie-rating'])){
     
@@ -22,7 +25,8 @@
       $connection = getConnection();
       $result = insertOneMovie($connection, $movie);
       if($result['success']){
-        $inputStatusMessage .= "The movie and rating were inserted with success!";
+        $inputStatus['message'] .= "The movie and rating were inserted with success!";
+        $inputStatus['success'] = true;
         // increment number of valid submissions
         if(isset($_SESSION['submissions'])){
           $_SESSION['submissions']++;
@@ -33,75 +37,66 @@
       
     } else {// if($movieEntry['movie-name']!="" && $movieEntry['movie-rating']!="")
     
-      $inputStatusMessage .= "Both inputs must have a value";
-    
+      $inputStatus['message'] .= "Both inputs must have a value";
+      $inputStatus['success'] = false;
     }
 
   } else {//  if(isset($movieEntry['movie-name']) && isset($movieEntry['movie-rating']))
 
-    $inputStatusMessage .= "Both inputs must be sent.";
+    $inputStatus['message'] .= "Both inputs must be sent.";
+    $inputStatus['success'] = false;
 
   }
 
+  // generate input status markup
+  $inputStatusMarkup = "";
 
-  // get movie ratings
-  $connection = getConnection();
-  $movieRatings = getMovieRatings($connection);
-  $connection = null;
+  if($inputStatus['success']){
+    $inputStatusMarkup .= "<div class='alert alert-success' role='alert'>";
+  } else {
+    $inputStatusMarkup .= "<div class='alert alert-danger' role='alert'>";
+  }
+
+  $inputStatusMarkup .= $inputStatus['message'];
+  $inputStatusMarkup .= "</div>";
+  // end of generation of $inputStatusMarkup
 
 ?>
 
 <!doctype html>
 <html lang="en">
+
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
+    <?php include_once(ROOTFOLDER.'/templates/page_head.php'); ?> 
+    <link rel="stylesheet" href="/style/output.css"/>
   </head>
+
   <body>
-    <head></head>
+
+    <header>
+      <?php include_once(ROOTFOLDER.'/templates/page_nav.php');?>
+
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Movies Rating Results</h1>
+          <p class="lead">This are the results so far</p>
+        </div>
+      </div>
+    </header>
 
     <main>
 
-      <div id="userMessage">
-        <?=$inputStatusMessage?>
+      <div id="userMessage" class="container">
+        <?=$inputStatusMarkup?>
       </div>
 
-      <div id="results">
-      <div id="records-container">
-        <table border="1">
-          <tr>
-            <th>#Order</th>
-            <th>Name</th>
-            <th>Rating</th>
-            <th>Cover</th>
-            <th>Date</th>
-          </tr>
-          <?php
-            $order = 1;
-            foreach($movieRatings as $movie){
-              ?>
-              <tr>
-                <td>#<?=$order?></td>
-                <td><?=$movie['movieName']?></td>
-                <td><?=$movie['movieRating']?></td>
-                <td></td>
-                <td><?=date("F j, Y, g:i a",strtotime($movie['ratingDate']))?></td>
-              </tr>
-              <?php  
-              $order++;
-            }
-          ?>
-        </table>
+      <div class="container">
+        <?php echo getMovieRatingsReport(); ?>
       </div>
-
-      <button type="button"><a href="/submit">Submit another movie</a></button>
-
+      <div class="container">
+        <a href="/submit" type="button" class="btn btn-primary">Submit another movie</a>
+      </div><!-- end of container -->
+      
     </main>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

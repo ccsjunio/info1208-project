@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Apr 14, 2020 at 07:57 PM
+-- Generation Time: Apr 15, 2020 at 03:33 AM
 -- Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1
 -- PHP Version: 7.4.4
 
@@ -62,7 +62,14 @@ INSERT INTO `tbMovieFromUser` (`id`, `sName`, `tsCreation`) VALUES
 (22, 'gtgtgt', '2020-04-14 02:40:08'),
 (23, '11111', '2020-04-14 02:44:27'),
 (24, '2222', '2020-04-14 02:44:36'),
-(25, '333333', '2020-04-14 02:44:44');
+(25, '333333', '2020-04-14 02:44:44'),
+(26, 'test', '2020-04-14 21:34:12'),
+(27, 'test', '2020-04-14 21:40:51'),
+(28, 'teetee', '2020-04-14 21:41:19'),
+(29, 'etee', '2020-04-14 21:42:03'),
+(30, 'test', '2020-04-15 02:48:55'),
+(31, 'test', '2020-04-15 02:51:14'),
+(32, 'test', '2020-04-15 02:53:15');
 
 -- --------------------------------------------------------
 
@@ -103,7 +110,14 @@ INSERT INTO `tbMovieRating` (`id`, `idMovieFromUser`, `iRating`) VALUES
 (19, 22, 2),
 (20, 23, 1),
 (21, 24, 3),
-(22, 25, 1);
+(22, 25, 1),
+(23, 26, 1),
+(24, 27, 2),
+(25, 28, 2),
+(26, 29, 3),
+(27, 30, 2),
+(28, 31, 2),
+(29, 32, 2);
 
 --
 -- Indexes for dumped tables
@@ -129,13 +143,13 @@ ALTER TABLE `tbMovieRating`
 -- AUTO_INCREMENT for table `tbMovieFromUser`
 --
 ALTER TABLE `tbMovieFromUser`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `tbMovieRating`
 --
 ALTER TABLE `tbMovieRating`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

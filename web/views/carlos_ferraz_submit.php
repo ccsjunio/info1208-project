@@ -7,43 +7,22 @@
 
   if(!isset($_SESSION['submissions'])){
     $_SESSION['submissions']=0;
-  } else if($_SESSION['submissions']==3) {
+  } else if($_SESSION['submissions']>=3) {
     $submissionsAllowed = false;
   }
-
-  // get movie ratings
-  $conn = getConnection();
-  $movieRatings = getMovieRatings($conn);
-  $conn = null;
 
 ?>
 
 <!doctype html>
 <html lang="en-US">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- favicon -->
-    <link rel="icon" href="/img/favicon.ico" />
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    
-    <!-- custom style -->
-    <link rel="stylesheet" href="/style/main.css"/>
-
-    <title>INFO1208 - PROJECT - CARLOS FERRAZ</title>
-  </head>
+  <header>
+    <?php include_once(ROOTFOLDER.'/templates/page_head.php'); ?>
+  </header>  
   <body>
     <header>
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="#">
-        <img src="/img/LogoCF.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        INFO1208 - Final Project - Carlos Ferraz
-      </a>
-    </nav>
+    
+    <?php include_once(ROOTFOLDER.'/templates/page_nav.php');?>
+
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 class="display-4">Movies Rating</h1>
@@ -66,7 +45,7 @@
         <?php } ?>
 
         <?php if($_SESSION['submissions']!=0 && $submissionsAllowed) { ?>
-          <div class="alert alert-light" role="alert">
+          <div class="alert alert-info" role="alert">
           You have submitted <?=$_SESSION['submissions']?> of the <?=$maxSubmissionsAllowed?> maximum submissions allowed.
           </div>
         <?php } ?>
@@ -102,38 +81,7 @@
         <button type="button" class="btn btn-primary" id="btnViewAllRecords">View All Records</button>
         <!-- container to hold the records container -->
         <div class="container">
-          <div class="row" id="records-container">
-            <!-- container of the table -->
-            <div class="col">
-              
-            <!-- begins header row -->
-              <div class="row movie-header">
-                <div class="col-1">Order</div>
-                <div class="col-5">Name</div>
-                <div class="col-1 text-center">Rating</div>
-                <div class="col-2 text-center">Cover</div>
-                <div class="col-3 text-center">Data</div>
-              </div><!-- end of header row -->
-
-              <?php
-              $order = 1;
-              foreach($movieRatings as $movie){
-                ?>
-                <!-- begins row for movie $movie['movieName'] -->
-                <div class="row movie-row">
-                  <div class="col-1">#<?=$order?></div>
-                  <div class="col-5"><?=$movie['movieName']?></div>
-                  <div class="col-1 text-center"><?=$movie['movieRating']?></div>
-                  <div class="col-2 text-center"></div>
-                  <div class="col-3 text-center"><?=date("F j, Y, g:i a",strtotime($movie['ratingDate']))?></div>
-                </div><!-- end of row for movie['movieName'] -->
-                <?php
-                $order++;  
-              }
-              ?>
-
-            </div><!-- end of container of the table -->
-          </div><!-- end of main row of records-container -->
+        <?php echo getMovieRatingsReport(); ?>
         </div><!-- end of records-container -->
         
       </div><!-- end of container -->

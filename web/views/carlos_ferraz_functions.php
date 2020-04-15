@@ -5,8 +5,8 @@
   
   function getConnection(){
     // database connection parameters
-    $DB_USER = 'info1208';
-    $DB_PASSWORD = 'averybadpassword';
+    $DB_USER = 'phpuser';
+    $DB_PASSWORD = 'phpuser';
     $DB_HOST = 'db';
     $DB_NAME = 'info1208_project';
     $CHARSET = 'utf8';
@@ -46,8 +46,11 @@
   
 
   
-  function getMovieRatings($connection){
+  function getMovieRatings(){
   
+    
+    if(!$connection = getConnection()) return null;
+
     $response = array();
     
      try{
@@ -72,13 +75,17 @@ EOF;
       return $response;
       
      } catch (PDOException $e){
-      print "Error! : " . $e->getMessage() . "<br/>";
+      //print "Error! : " . $e->getMessage() . "<br/>";
       return null;
      }
   
   } // end of getMovieRatings
   
-  function insertOneMovie($connection, $input_array){
+  function insertOneMovie($input_array){
+
+    $connection = getConnection();
+
+    if(!$connection) return null;
 
     $response = array();
     $response['success'] = false;
@@ -119,6 +126,52 @@ EOF;
     );
 
     return $response;
+
+  }
+
+  function getMovieRatingsReport(){
+
+    // get movie ratings
+    
+    if(!$movieRatings = getMovieRatings()) return "Problems with connection to database";
+    
+    $htmlMarkup = "";
+    $htmlMarkup .= '<div class="row" id="records-container">';
+    $htmlMarkup .= '<!-- container of the table -->';
+    $htmlMarkup .= '<div class="col">';
+    $htmlMarkup .= '<!-- begins header row -->';
+    $htmlMarkup .= '  <div class="row movie-header">';
+    $htmlMarkup .= '    <div class="col-1">Order</div>';
+    $htmlMarkup .= '    <div class="col-5">Name</div>';
+    $htmlMarkup .= '    <div class="col-1 text-center">Rating</div>';
+    $htmlMarkup .= '    <div class="col-2 text-center">Cover</div>';
+    $htmlMarkup .= '    <div class="col-3 text-center">Data</div>';
+    $htmlMarkup .= '  </div><!-- end of header row -->';
+
+    $order = 1;
+    foreach($movieRatings as $movie){
+
+      $dateMarkup = date("F j, Y, g:i a",strtotime($movie['ratingDate']));
+      $movieName = $movie['movieName'];
+      $movieRating = $movie['movieRating'];
+            
+      $htmlMarkup .= "<!-- begins row for movie $movieName -->";
+      $htmlMarkup .= '<div class="row movie-row">';
+      $htmlMarkup .= "  <div class='col-1'>#$order</div>";
+      $htmlMarkup .= "  <div class='col-5'>$movieName</div>";
+      $htmlMarkup .= "  <div class='col-1 text-center'>$movieRating</div>";
+      $htmlMarkup .= "  <div class='col-2 text-center'></div>";
+      $htmlMarkup .= "  <div class='col-3 text-center'>$dateMarkup</div>";
+      $htmlMarkup .= "</div><!-- end of row for $movieName -->";
+            
+      $order++;  
+
+    }
+
+    $htmlMarkup .= "    </div><!-- end of container of the table -->";
+    $htmlMarkup .= "  </div><!-- end of main row of records-container -->";
+
+    return $htmlMarkup;
 
   }
 
