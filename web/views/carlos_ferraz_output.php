@@ -22,8 +22,7 @@
       );
 
       // input values on database
-      $connection = getConnection();
-      $result = insertOneMovie($connection, $movie);
+      $result = insertOneMovie($movie);
       if($result['success']){
         $inputStatus['message'] .= "The movie and rating were inserted with success!";
         $inputStatus['success'] = true;
