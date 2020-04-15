@@ -1,6 +1,4 @@
 <?php
-  require_once(ROOTFOLDER."/views/carlos_ferraz_functions.php");
-
   // test submissions state
   $submissionsAllowed = true;
   $maxSubmissionsAllowed = 3;

@@ -1,9 +1,19 @@
 <?php
+// enable all error messages
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 define("ROOTFOLDER",$_SERVER['DOCUMENT_ROOT']);
 define("URLBASE",$_SERVER['SERVER_NAME']);
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+require_once ROOTFOLDER . '/vendor/autoload.php';
+
+require_once(ROOTFOLDER."/views/carlos_ferraz_functions.php");
+
+
+
+$dotenv =  Dotenv\Dotenv::createImmutable(ROOTFOLDER);
+$dotenv->load();
 
 $request = $_SERVER['REQUEST_URI'];
 

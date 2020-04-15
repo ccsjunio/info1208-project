@@ -2,130 +2,29 @@
   session_start();
 
   date_default_timezone_set('America/Toronto');
-  
-  function getConnection(){
-    // database connection parameters
-    $DB_USER = 'phpuser';
-    $DB_PASSWORD = 'phpuser';
-    $DB_HOST = 'db';
-    $DB_NAME = 'info1208_project';
-    $CHARSET = 'utf8';
-    $connection = null;
 
-    // connection string
-    $dsn = "mysql:host=$DB_HOST;dbname=$DB_NAME;charset=$CHARSET";
-
-    // attribute flags for database connection
-    $options = [
-      PDO::ATTR_EMULATE_PREPARES    =>  false, // turn off emulation mode for "real prepared statements
-      PDO::ATTR_ERRMODE             =>  PDO::ERRMODE_EXCEPTION, // turn on errors in the form of exceptions
-      PDO::ATTR_DEFAULT_FETCH_MODE  =>  PDO::FETCH_ASSOC, //make the default fetch be an associate array
-      PDO::ATTR_PERSISTENT          =>  true
-    ];
-
-    // make the connection
-    try{
-      $connection = new PDO(
-          $dsn,
-          $DB_USER,
-          $DB_PASSWORD,
-          $options
-      );
-      
-      return $connection;
-      
-    } catch (PDOException $e){
-      
-      print "Error in the connection establishment !: " . $e->getMessage() . "<br/>";
-      
-      return null;
-    
-    }
-  
-  } // end of getConnection
-  
-
+  require_once(ROOTFOLDER."/connection/DB.php");
   
   function getMovieRatings(){
   
     
-    if(!$connection = getConnection()) return null;
+    if( !$connection = new DB() ) return null;
 
-    $response = array();
-    
-     try{
-       
-       $query = <<<EOF
-                  SELECT 
-                    m.id AS "movieId", 
-                    m.sName AS "movieName", 
-                    mr.iRating AS "movieRating", 
-                    m.tsCreation AS "ratingDate" 
-                  FROM tbMovieFromUser m 
-                  INNER JOIN tbMovieRating mr ON mr.idMovieFromUser = m.id
-                  ORDER BY mr.iRating DESC
-EOF;
-      
-      $statement = $connection->prepare($query);
-      $statement->execute();
-      foreach($statement as $row){
-        $response[] = $row;
-      }
+    $response = $connection->getMovieRatings();
 
-      return $response;
-      
-     } catch (PDOException $e){
-      //print "Error! : " . $e->getMessage() . "<br/>";
-      return null;
-     }
+    $connection = null;
+
+    return $response;
   
   } // end of getMovieRatings
   
-  function insertOneMovie($input_array){
+  function insertOneMovie( $input_array ){
 
-    $connection = getConnection();
+    if( !$connection = new DB() ) return null;
 
-    if(!$connection) return null;
+    $response = $connection->insertOneMovie( $input_array );
 
-    $response = array();
-    $response['success'] = false;
-
-    $movieName = $input_array['name'];
-    $movieRating = $input_array['rating'];
-
-    try{
-
-      // TODO: get all the movies existent and try to find a match
-
-      // insert new movie and get new id
-      $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $connection->beginTransaction();
-      $statement = $connection->prepare("INSERT INTO tbMovieFromUser (sName) VALUES (?)");
-      $statement->execute([$movieName]);
-      $newMovieId = $connection->lastInsertId();
-      $connection->commit();
-
-      //insert rating using the id generated
-      $connection->beginTransaction();
-      $statement = $connection->prepare("INSERT INTO tbMovieRating (idMovieFromUser, iRating) VALUES (?,?)");
-      $statement->execute([$newMovieId, $movieRating]);
-      $newRatingId = $connection->lastInsertId();
-      $connection->commit();
-
-      $response['success'] = true;
-    
-    } catch (PDOException $e){
-      
-      $connection->rollBack();
-      print "Error! : " . $e->getMessage() . "<br/>";
-    
-    }
-
-
-    $response['inputs'] = array(
-      "movieName" => $movieName,
-      "movieRating" => $movieRating
-    );
+    $connection = null;
 
     return $response;
 
@@ -134,8 +33,8 @@ EOF;
   function getMovieRatingsReport(){
 
     // get movie ratings
-    
-    if(!$movieRatings = getMovieRatings()) return "Problems with connection to database";
+
+    if( !$movieRatings = getMovieRatings() ) return "Problems with connection to database";
     
     $htmlMarkup = "";
     $htmlMarkup .= '<div class="row" id="records-container">';

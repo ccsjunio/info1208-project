@@ -1,7 +1,5 @@
 <?php
-  require_once(ROOTFOLDER."/views/carlos_ferraz_functions.php");
 
-  
 
   // get post inputs
   $movieEntry = $_POST;
