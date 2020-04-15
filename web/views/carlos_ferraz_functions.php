@@ -95,6 +95,8 @@ EOF;
 
     try{
 
+      // TODO: get all the movies existent and try to find a match
+
       // insert new movie and get new id
       $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $connection->beginTransaction();
