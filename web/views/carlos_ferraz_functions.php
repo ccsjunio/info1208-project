@@ -1,41 +1,61 @@
 <?php
   session_start();
-
+  // set default timezone for Torongo
   date_default_timezone_set('America/Toronto');
-
+  // loads the class for database connection
   require_once(ROOTFOLDER."/connection/DB.php");
   
+  // function to get the movie ratings list
+  // acts as a proxy between the page and the
+  // database, close to an API
   function getMovieRatings(){
   
-    
+    // open the connection creating an instance of the
+    // database connection class. if there is a problem
+    // then returns null
     if( !$connection = new DB() ) return null;
 
+    // the response will be the return of the method
     $response = $connection->getMovieRatings();
 
+    // destroy the instance of the class
     $connection = null;
 
     return $response;
   
   } // end of getMovieRatings
   
+  // function to insert one movie in the database
+  // acts as a proxy between the page and the
+  // database, close to an API
   function insertOneMovie( $input_array ){
 
+    // open the connection creating an instance of the
+    // database connection class. if there is a problem
+    // then returns null
     if( !$connection = new DB() ) return null;
 
+    // the response will the the return of the method.
+    // will forward the array containing the movie
+    // information
     $response = $connection->insertOneMovie( $input_array );
 
+    // destroy the instance of the class and thus the
+    // connection
     $connection = null;
 
     return $response;
 
   }
 
+  // returns the markup for the movie ratings list
   function getMovieRatingsReport(){
 
     // get movie ratings
-
+    // if there is a problem returns an error message
     if( !$movieRatings = getMovieRatings() ) return "Problems with connection to database";
     
+    // begins the markup to build a bootstrap style table
     $htmlMarkup = "";
     $htmlMarkup .= '<div class="row" id="records-container">';
     $htmlMarkup .= '<!-- container of the table -->';
@@ -49,13 +69,23 @@
     $htmlMarkup .= '    <div class="col-3 text-center">Data</div>';
     $htmlMarkup .= '  </div><!-- end of header row -->';
 
+    // initialize counter for the index in the 
+    // movie ratings table in the front end
     $order = 1;
+    // iterate throug each movie retrieved from 
+    // database to build the rows of the table
     foreach($movieRatings as $movie){
 
+      // build the date markup to exhibit as a human readable date
+      // this is the date of creation of the rating, set automatically
+      // in the database registry insert
       $dateMarkup = date("F j, Y, g:i a",strtotime($movie['ratingDate']));
+      // initialize the movie name as variable
       $movieName = $movie['movieName'];
+      // initialize the movie rating as variable
       $movieRating = $movie['movieRating'];
-            
+      
+      // markup for the row
       $htmlMarkup .= "<!-- begins row for movie $movieName -->";
       $htmlMarkup .= '<div class="row movie-row">';
       $htmlMarkup .= "  <div class='col-1'>#$order</div>";
@@ -64,18 +94,23 @@
       $htmlMarkup .= "  <div class='col-2 text-center'></div>";
       $htmlMarkup .= "  <div class='col-3 text-center'>$dateMarkup</div>";
       $htmlMarkup .= "</div><!-- end of row for $movieName -->";
-            
+      
+      // increment the index for the next row
       $order++;  
 
     }
 
+    // close the table
     $htmlMarkup .= "    </div><!-- end of container of the table -->";
     $htmlMarkup .= "  </div><!-- end of main row of records-container -->";
 
+    // return the markup
     return $htmlMarkup;
 
   } // end of function getMovieRatingsReport()
 
+  // function to reset the submissions counter in the
+  // session. Used only on development for testing purposes
   function resetSessionSubmissions(){
 
     $_SESSION['submissions'] = 0;
@@ -84,7 +119,9 @@
 
   }
 
-
+  // this is a future expansion for other
+  // database methods for updating and deleting registries
+  
   // select records
   /*
   try{

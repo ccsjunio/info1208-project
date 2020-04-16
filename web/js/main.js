@@ -19,11 +19,17 @@ function initialize(){
 
 } // end of window.onload
 
+// toggle the visibility of the list of movie ratings
 function toggleRecordsContainerDisplay(event){
 
+  // map button pressed
   let button = event.target;
+  // map movie rating table
   let recordsContainer = document.getElementById("records-container");
 
+  // detects the current status of the table 
+  // and toggle button text, color and visibility
+  // of list accordingly
   if(recordsContainer.style.display == "block"){
     
     recordsContainer.style.display = "none";
