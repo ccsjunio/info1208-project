@@ -1,6 +1,4 @@
 <?php
-
-
   // get post inputs
   $movieEntry = $_POST;
   $inputStatus = array(

@@ -3,6 +3,11 @@
   $submissionsAllowed = true;
   $maxSubmissionsAllowed = 3;
 
+  if( isset($_SESSION['submissions']) && isset($resetSubmissions) ){
+    $_SESSION['submissions']=0;
+    $resetSubmissions = false;
+  }
+
   if(!isset($_SESSION['submissions'])){
     $_SESSION['submissions']=0;
   } else if($_SESSION['submissions']>=3) {
@@ -36,8 +41,9 @@
 
         <?php if(!$submissionsAllowed) { ?>
         
-          <div class="alert alert-danger" role="alert">
+          <div class="alert alert-danger" role="alert" id="maximumSubmissionsReachedAlert">
             You have aready submitted <?=$maxSubmissionsAllowed?> movies. You cannot submit more than that! Sorry!
+            <a href="/reset" type="button" class="btn btn-outline-danger" id="btnClearSessionSubmissions">Clear session</a>
           </div>
         
         <?php } ?>

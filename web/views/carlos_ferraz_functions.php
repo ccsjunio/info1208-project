@@ -74,6 +74,14 @@
 
     return $htmlMarkup;
 
+  } // end of function getMovieRatingsReport()
+
+  function resetSessionSubmissions(){
+
+    $_SESSION['submissions'] = 0;
+
+    return true;
+
   }
 
 

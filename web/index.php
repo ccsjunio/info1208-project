@@ -38,6 +38,11 @@ switch ($request) {
         http_response_code(200);
         require ROOTFOLDER . '/views/carlos_ferraz_output.php';
     break;
+    case '/reset' :
+        http_response_code(200);
+        $resetSubmissions = true;
+        require ROOTFOLDER . '/views/carlos_ferraz_submit.php';
+    break;
     default:
         http_response_code(404);
         require ROOTFOLDER . '/views/404.php';

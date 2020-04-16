@@ -5,6 +5,9 @@ function initialize(){
   let buttonShowAllRecords = document.getElementById("btnViewAllRecords");
   buttonShowAllRecords.addEventListener("click",toggleRecordsContainerDisplay);
 
+  let buttonClearSessionSubmissions = document.getElementById("btnClearSessionSubmissions");
+  buttonClearSessionSubmissions.addEventListener("click", clearSessionSubmissions);
+
 } // end of window.onload
 
 function toggleRecordsContainerDisplay(event){
