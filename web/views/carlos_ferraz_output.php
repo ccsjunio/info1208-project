@@ -1,6 +1,10 @@
 <?php
   // get post inputs
   $movieEntry = $_POST;
+  // empty the post array to avoid resubmission of data in case the 
+  // page is refreshed. This approach is taken when the javascript
+  // one does not working for being disabled
+  $_POST = array();
   $inputStatus = array(
     "success"=>false,
     "message"=>""
@@ -74,7 +78,7 @@
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
           <h1 class="display-4">Movies Rating Results</h1>
-          <p class="lead">This are the results so far</p>
+          <p class="lead">These are the results so far</p>
         </div>
       </div>
     </header>

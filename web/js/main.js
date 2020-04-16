@@ -1,3 +1,12 @@
+// avoid showing the screen asking if the form
+// should be submitted again. 
+// the post are also erased in order to 
+// no sent anything
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+
+// when the document is loaded, execute initialize
 window.onload = initialize;
 
 function initialize(){
