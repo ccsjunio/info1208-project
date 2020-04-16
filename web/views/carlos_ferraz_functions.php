@@ -135,7 +135,7 @@
 
   function sanitize_integer( $input ){
 
-    filter_var( $input, FILTER_SANITIZE_NUMBER_INT );
+    return filter_var( $input, FILTER_SANITIZE_NUMBER_INT );
 
   }
 
