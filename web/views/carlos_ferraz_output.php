@@ -28,8 +28,8 @@
         // avoid sql injections and other malicious code to be entered
         // also the pdo abstraction layer and preparation of queries will
         // contribute to avoid any damage in the database, or exposure of data
-        "name"    => filter_var( $movieEntry['movie-name'], FILTER_SANITIZE_STRING ),
-        "rating"  => filter_var( $movieEntry['movie-rating'], FILTER_SANITIZE_NUMBER_INT )
+        "name"    => sanitize_string( $movieEntry['movie-name'] ),
+        "rating"  => sanitize_integer( $movieEntry['movie-rating'] )
         
       );
 
@@ -47,9 +47,13 @@
         // if for some reason the submissions attribute
         // of session is not set, set it for one
         if(isset($_SESSION['submissions'])){
-          $_SESSION['submissions']++;
+
+          increment_session_count();
+        
         } else {
+          
           $_SESSION['submissions'] = 1;
+        
         }
       }
       

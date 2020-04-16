@@ -119,6 +119,26 @@
 
   }
 
+  function increment_session_count(){
+
+    $_SESSION['submissions'] ++;
+
+    return true;
+
+  }
+
+  function sanitize_string( $input ){
+
+    return filter_var( $input, FILTER_SANITIZE_STRING );
+
+  }
+
+  function sanitize_integer( $input ){
+
+    filter_var( $input, FILTER_SANITIZE_NUMBER_INT )
+
+  }
+
   // this is a future expansion for other
   // database methods for updating and deleting registries
   
