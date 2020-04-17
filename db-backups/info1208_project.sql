@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Apr 15, 2020 at 10:12 PM
+-- Generation Time: Apr 17, 2020 at 10:43 PM
 -- Server version: 10.0.38-MariaDB-0ubuntu0.16.04.1
 -- PHP Version: 7.4.4
 
@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `info1208_project`
 --
+DROP DATABASE IF EXISTS `info1208_project`;
 CREATE DATABASE IF NOT EXISTS `info1208_project` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `info1208_project`;
 
@@ -29,7 +30,6 @@ USE `info1208_project`;
 -- Table structure for table `tbMovieFromUser`
 --
 
-DROP TABLE IF EXISTS `tbMovieFromUser`;
 CREATE TABLE `tbMovieFromUser` (
   `id` int(11) NOT NULL,
   `sName` varchar(100) NOT NULL,
@@ -71,7 +71,19 @@ INSERT INTO `tbMovieFromUser` (`id`, `sName`, `tsCreation`) VALUES
 (31, 'test', '2020-04-15 02:51:14'),
 (32, 'test', '2020-04-15 02:53:15'),
 (33, 'frfr', '2020-04-15 03:43:11'),
-(34, 'test', '2020-04-15 21:57:02');
+(34, 'test', '2020-04-15 21:57:02'),
+(35, 'dedede', '2020-04-17 19:53:34'),
+(36, 'rer', '2020-04-17 20:02:42'),
+(37, 'rere', '2020-04-17 20:02:59'),
+(38, 'dedede', '2020-04-17 20:09:45'),
+(39, 'r4r4r4', '2020-04-17 20:11:04'),
+(40, 'frfr', '2020-04-17 22:01:40'),
+(41, 'frfrfr', '2020-04-17 22:16:40'),
+(42, 'frfrfr', '2020-04-17 22:16:48'),
+(43, 'frfrfr', '2020-04-17 22:16:54'),
+(44, 'frfrfrfr', '2020-04-17 22:17:35'),
+(45, 'zzzzzzzzzzzzzzzzzzzzzzz', '2020-04-17 22:17:46'),
+(46, 'frfrfr', '2020-04-17 22:17:53');
 
 -- --------------------------------------------------------
 
@@ -79,7 +91,6 @@ INSERT INTO `tbMovieFromUser` (`id`, `sName`, `tsCreation`) VALUES
 -- Table structure for table `tbMovieRating`
 --
 
-DROP TABLE IF EXISTS `tbMovieRating`;
 CREATE TABLE `tbMovieRating` (
   `id` int(11) NOT NULL,
   `idMovieFromUser` int(11) NOT NULL,
@@ -121,7 +132,19 @@ INSERT INTO `tbMovieRating` (`id`, `idMovieFromUser`, `iRating`) VALUES
 (28, 31, 2),
 (29, 32, 2),
 (30, 33, 2),
-(31, 34, 2);
+(31, 34, 2),
+(32, 35, 2),
+(33, 36, 2),
+(34, 37, 2),
+(35, 38, 2),
+(36, 39, 2),
+(37, 40, 3),
+(38, 41, 2),
+(39, 42, 2),
+(40, 43, 2),
+(41, 44, 2),
+(42, 45, 8),
+(43, 46, 3);
 
 --
 -- Indexes for dumped tables
@@ -147,13 +170,13 @@ ALTER TABLE `tbMovieRating`
 -- AUTO_INCREMENT for table `tbMovieFromUser`
 --
 ALTER TABLE `tbMovieFromUser`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `tbMovieRating`
 --
 ALTER TABLE `tbMovieRating`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
