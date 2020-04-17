@@ -33,10 +33,6 @@ $dotenv->load();
 // identify the page to be loaded from the requested URI
 $request = $_SERVER['REQUEST_URI'];
 
-echo "request = " . $request;
-echo "<br/>ROOTFOLDER = " . ROOTFOLDER;
-echo "<br/>RELATIVEURL = " . RELATIVEURL;
-
 // identify the page to be loaded according to the request
 switch ( $request ) {
     
