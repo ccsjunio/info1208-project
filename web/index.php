@@ -6,21 +6,21 @@
 * http request parameter. This page serves as a simple router
 */
 
-
 // enable all error messages
 // to be active only on development
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+define("RELATIVEURL", dirname($_SERVER['PHP_SELF']) == "/" ? "" : dirname($_SERVER['PHP_SELF']) );
 // define the path to the root folder of the site in the web server
-define("ROOTFOLDER",$_SERVER['DOCUMENT_ROOT']);
+define( "ROOTFOLDER",$_SERVER['DOCUMENT_ROOT'] . RELATIVEURL );
 // define the url page as reference for the front end
 define("URLBASE",$_SERVER['SERVER_NAME']);
 
 // call the autoloader to load the packages necessary in this application
 // for this application the package used is the dotenv, to load
 // environment variable from the .env file
-require_once ROOTFOLDER . '/vendor/autoload.php';
+require_once ROOTFOLDER .'/vendor/autoload.php';
 
 // include the functions file that will serve all pages
 require_once(ROOTFOLDER."/views/carlos_ferraz_functions.php");
@@ -33,39 +33,44 @@ $dotenv->load();
 // identify the page to be loaded from the requested URI
 $request = $_SERVER['REQUEST_URI'];
 
+echo "request = " . $request;
+echo "<br/>ROOTFOLDER = " . ROOTFOLDER;
+echo "<br/>RELATIVEURL = " . RELATIVEURL;
+
 // identify the page to be loaded according to the request
-switch ($request) {
+switch ( $request ) {
+    
     // load the submit page as default without URI suffix
-    case '/' :
+    case RELATIVEURL . '/' :
         http_response_code(200);
-        require ROOTFOLDER . '/views/carlos_ferraz_submit.php';
+        require ROOTFOLDER .'/views/carlos_ferraz_submit.php';
         break;
     // load the submit page as default without URI suffix
-    case '' :
+    case RELATIVEURL . '' :
         http_response_code(200);
         require ROOTFOLDER . '/views/carlos_ferraz_submit.php';
         break;
     // load the submit page as explicitly called
-    case '/submit' :
+    case RELATIVEURL . '/submit' :
         http_response_code(200);
         require ROOTFOLDER . '/views/carlos_ferraz_submit.php';
         break;
     // load the functions page, although in this case still does not
     // makes sense or is useful
-    case '/functions' :
+    case RELATIVEURL . '/functions' :
         http_response_code(200);
         require ROOTFOLDER . '/views/carlos_ferraz_functions.php';
         break;
     // load the output page that processes the call from the form
     // submiting the movie information
-    case '/output' :
+    case RELATIVEURL . '/output' :
         http_response_code(200);
         require ROOTFOLDER . '/views/carlos_ferraz_output.php';
     break;
     // load the submit page, but enabling the flag
     // to reset the submissions counter.
     // available only in the phase of development
-    case '/reset' :
+    case RELATIVEURL.'/reset' :
         http_response_code(200);
         $resetSubmissions = true;
         require ROOTFOLDER . '/views/carlos_ferraz_submit.php';

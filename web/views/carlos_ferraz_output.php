@@ -1,5 +1,5 @@
-<?php
-  // get post inputs
+<?php 
+ // get post inputs
   $movieEntry = $_POST;
   // empty the post array to avoid resubmission of data in case the 
   // page is refreshed. This approach is taken when the javascript
@@ -99,7 +99,7 @@
   <!-- and reflects changes to all of them without much work load -->
   <head>
     <?php include_once(ROOTFOLDER.'/templates/page_head.php'); ?> 
-    <link rel="stylesheet" href="/style/output.css"/>
+    <link rel="stylesheet" href="./style/output.css"/>
   </head>
 
   <body>
@@ -134,7 +134,7 @@
       <!-- container to hold the button to jump to the -->
       <!-- movie rating submission page -->
       <div class="container">
-        <a href="/submit" type="button" class="btn btn-primary">Submit another movie</a>
+        <a href="./submit" type="button" class="btn btn-primary">Submit another movie</a>
       </div><!-- end of container -->
       
     </main>

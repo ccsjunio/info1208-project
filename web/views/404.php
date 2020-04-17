@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en-US">
-    <?php require_once('./templates/page_head.php');?>
+    <?php require_once(ROOTFOLDER . '/templates/page_head.php');?>
     <body>
         <header>
         
-        <?php include_once(ROOTFOLDER.'/templates/page_nav.php');?>
+        <?php include_once(ROOTFOLDER .'/templates/page_nav.php');?>
 
         <div class="jumbotron jumbotron-fluid">
         <div class="container">
@@ -15,7 +15,7 @@
         </header>
 
         <div class="container">
-            <a href="/submit"><img src="/img/404_not_found.jpg" style="width:100%;"/></a>
+            <a href="./submit"><img src="./img/404_not_found.jpg" style="width:100%;"/></a>
         </div>
         
         <?php include_once(ROOTFOLDER."/templates/page_footer.php");?>

@@ -60,7 +60,7 @@
           <!-- maxSubmissionsAllowed, than this alert message appears for the user -->
           <div class="alert alert-danger" role="alert" id="maximumSubmissionsReachedAlert">
             You have aready submitted <?=MAX_SUBMISSIONS_ALLOWED?> movies. You cannot submit more than that! Sorry!
-            <a href="/reset" type="button" class="btn btn-outline-danger" id="btnClearSessionSubmissions">Clear session</a>
+            <a href="./reset" type="button" class="btn btn-outline-danger" id="btnClearSessionSubmissions">Clear session</a>
           </div>
         
         <?php } ?>
@@ -79,7 +79,7 @@
           
           <!-- declaration of the submission form submiting to the output page -->
           <!-- through the router -->
-          <form class="form-inline" action="/output" method="POST">
+          <form class="form-inline" action="./output" method="POST">
 
             <div class="form-row">
 
